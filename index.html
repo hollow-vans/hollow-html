@@ -265,6 +265,24 @@
 	transform:translateY(10px);
 	transition:opacity 0.6s ease, transform 0.6s ease;
 	}
+	.reveal-list li.movie-item{
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	gap:10px;
+	padding:14px 0 6px;
+	border-bottom:1px solid var(--grey);
+	}
+	.movie-image{
+	width:100%;
+	max-width:240px;
+	margin:0 auto 6px;
+	}
+	.movie-title{
+	font-family:'Oranienbaum', serif;
+	font-size:1.05rem;
+	color:var(--white);
+	}
 	.reveal-list li.shown{ opacity:1; transform:translateY(0); }
 	#roster li.you{ color:var(--gold-bright); }
 	#roster li.you::after{
@@ -374,16 +392,33 @@
 	const SPREADSHEET_URL = "https://docs.google.com/spreadsheets/d/1kW8hWA10BKXkQwlsXiq55qwD-PBtSUJ5NzBVbqKysrY/edit?usp=sharing";
 
 	/* ============================================================
-	EDIT: the three movies for trivia night.
+	EDIT: the three movies for trivia night. Add an image file for each in the same folder as this HTML file.
+	e.g. in this example, Coraline.png, ParaNorman.png, and Frankenweenie.png and point "image" at its relevant path.
+	Leave "image" blank if you don't want to show an image for that movie.
 	============================================================ */
-	const TRIVIA_MOVIES = ["Movie One", "Movie Two", "Movie Three"];
+	const TRIVIA_MOVIES = [
+	{"title": "Coraline", image: "hollow-html/Coraline.png"},
+	{"title": "ParaNorman", image: "hollow-html/ParaNorman.png"},
+	{"title": "Frankenweenie", image: "hollow-html/Frankenweenie.png"}
+	];
 
 	document.getElementById('sheetLink').href = SPREADSHEET_URL;
 
 	const movieListEl = document.getElementById('movieList');
 	TRIVIA_MOVIES.forEach(title=>{
 	const li = document.createElement('li');
-	li.textContent = title;
+	li.classList.add('movie-item');
+	if(movie.image){
+	const img = document.createElement('img');
+	img.src = movie.image;
+	img.alt = movie.title;
+	img.classList.add('movie-image');
+	li.appendChild(img);
+	}
+	const caption = document.createElement('div');
+	caption.classList.add('movie-title');
+	caption.textContent = movie.title;
+	li.appendChild(caption);
 	movieListEl.appendChild(li);
 	});
 
@@ -392,9 +427,9 @@
 	const now = new Date();
 	return new Date(now.getFullYear(), 9, 1, 0, 0, 0); // Month is 0-indexed (9 = October)
 	}
-	
+
 	function pad(n){ return n.toString().padStart(2, '0'); }
-	
+
 	function tickCountdown(){
 	const el = document.getElementById('countdown');
 	const diff = getOctoberFirst() - new Date();
