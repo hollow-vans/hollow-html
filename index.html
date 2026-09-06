@@ -323,9 +323,9 @@
   <canvas id="particles"></canvas>
 
   <div id="lock">
-    <div class="eyebrow">Halloween Gathering</div>
+    <div class="eyebrow">Halloween Party 2026</div>
     <h1 class="lock-title display">Enter your code</h1>
-    <input id="passcode" maxlength="6" inputmode="numeric" autocomplete="off" placeholder="— — — —" aria-label="Personal passcode">
+    <input id="passcode" maxlength="4" inputmode="numeric" autocomplete="off" placeholder="— — — —" aria-label="Personal passcode">
     <div><button id="submit">Unlock</button></div>
     <div id="error">Code not recognized. Try again.</div>
   </div>
@@ -405,7 +405,7 @@
 	document.getElementById('sheetLink').href = SPREADSHEET_URL;
 
 	const movieListEl = document.getElementById('movieList');
-	TRIVIA_MOVIES.forEach(title=>{
+	TRIVIA_MOVIES.forEach(movie=>{
 	const li = document.createElement('li');
 	li.classList.add('movie-item');
 	if(movie.image){
