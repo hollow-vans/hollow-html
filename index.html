@@ -184,7 +184,7 @@
 
 	.countdown-timer{
 	font-size:clamp(1.3rem, 4vw, 1.7rem);
-	color:var(--gold-bright);
+	color:var(--white);
 	letter-spacing:0.06em;
 	margin-bottom:34px;
 	font-weight:400;
@@ -234,9 +234,8 @@
 	50%{ transform:translate(3px,1px); }
 	}
 
-
 	.divider{
-	width:40px;
+	width:100px;
 	height:1px;
 	background:var(--grey-line);
 	margin:22px auto 26px;
@@ -316,9 +315,11 @@
   <div id="reveal">
     <div class="guest-label">Assigned to</div>
     <div class="guest-name display" id="guestName"></div>
+	
 	<div class="countdown-label">Team Revealed In</div>
 	<div class="countdown-timer display" id="countdown">00d 00h 00m 00s</div>
 	<div class="divider"></div>
+	
 	<div class="team-name display" id="teamName"></div>
     <ul id="roster" class="reveal-list"></ul>
 
