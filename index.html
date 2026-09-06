@@ -293,6 +293,14 @@
 	letter-spacing:0.05em;
 	}
 
+	.movie-theme-label{
+	font-size:0.7rem;
+	letter-spacing:0.3em;
+	text-transform:uppercase;
+	color:var(--white-dim);
+	margin-bottom:6px;
+	}
+	
 	.theme-link{
 	display:inline-block;
 	color:var(--gold-bright);
@@ -346,6 +354,7 @@
 
     <div class="divider"></div>
     <div class="team-name display">Trivia Movie List</div>
+	<div class="movie-theme-label">Misfit Kids and Monsters</div>
     <ul id="movieList" class="reveal-list"></ul>
   </div>
 </div>
@@ -398,8 +407,8 @@
 	============================================================ */
 	const TRIVIA_MOVIES = [
 	{"title": "Coraline", image: "Coraline.jpg"},
-	{"title": "ParaNorman", image: "hollow-html/ParaNorman.jpg"},
-	{"title": "Frankenweenie", image: "hollow-html/Frankenweenie.jpg"}
+	{"title": "ParaNorman", image: "ParaNorman.jpg"},
+	{"title": "Frankenweenie", image: "Frankenweenie.jpg"}
 	];
 
 	document.getElementById('sheetLink').href = SPREADSHEET_URL;
