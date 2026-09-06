@@ -7,280 +7,296 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oranienbaum&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --black: #0a0a0a;
-    --charcoal: #151515;
-    --grey: #2a2a2a;
-    --grey-line: #3d3d3a;
-    --white: #ece9e2;
-    --white-dim: #8f8c85;
-    --gold: #cda545;
-    --gold-bright: #f0cf7d;
-  }
+	:root{
+	--black: #0a0a0a;
+	--charcoal: #151515;
+	--grey: #2a2a2a;
+	--grey-line: #3d3d3a;
+	--white: #ece9e2;
+	--white-dim: #8f8c85;
+	--gold: #cda545;
+	--gold-bright: #f0cf7d;
+	}
 
-  *{ box-sizing:border-box; margin:0; padding:0; }
+	*{ box-sizing:border-box; margin:0; padding:0; }
 
-  html,body{
-    height:100%;
-    background:var(--black);
-    color:var(--white);
-    font-family:'Inter',sans-serif;
-    overflow:hidden;
-  }
+	html,body{
+	height:100%;
+	background:var(--black);
+	color:var(--white);
+	font-family:'Inter',sans-serif;
+	overflow:hidden;
+	}
 
-  .display{ font-family:'Oranienbaum', serif; }
+	.display{ font-family:'Oranienbaum', serif; }
 
-  #stage{
-    position:relative;
-    width:100vw;
-    height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
+	#stage{
+	position:relative;
+	width:100vw;
+	height:100vh;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	}
 
-  canvas#particles{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    z-index:1;
-    pointer-events:none;
-  }
+	canvas#particles{
+	position:absolute;
+	inset:0;
+	width:100%;
+	height:100%;
+	z-index:1;
+	pointer-events:none;
+	}
 
-  /* ---------- LOCK SCREEN ---------- */
-  #lock{
-    position:relative;
-    z-index:3;
-    width:min(90vw, 380px);
-    text-align:center;
-    transition:opacity 0.8s ease, filter 0.8s ease;
-  }
+	/* ---------- LOCK SCREEN ---------- */
+	#lock{
+	position:relative;
+	z-index:3;
+	width:min(90vw, 380px);
+	text-align:center;
+	transition:opacity 0.8s ease, filter 0.8s ease;
+	}
 
-  #lock.hidden{
-    opacity:0;
-    filter:blur(6px);
-    pointer-events:none;
-  }
+	#lock.hidden{
+	opacity:0;
+	filter:blur(6px);
+	pointer-events:none;
+	}
 
-  .eyebrow{
-    font-size:0.7rem;
-    letter-spacing:0.35em;
-    text-transform:uppercase;
-    color:var(--gold);
-    margin-bottom:18px;
-  }
+	.eyebrow{
+	font-size:0.7rem;
+	letter-spacing:0.35em;
+	text-transform:uppercase;
+	color:var(--gold);
+	margin-bottom:18px;
+	}
 
-  h1.lock-title{
-    font-size:clamp(1.8rem, 5vw, 2.6rem);
-    font-weight:400;
-    letter-spacing:0.04em;
-    margin-bottom:28px;
-    color:var(--white);
-  }
+	h1.lock-title{
+	font-size:clamp(1.8rem, 5vw, 2.6rem);
+	font-weight:400;
+	letter-spacing:0.04em;
+	margin-bottom:28px;
+	color:var(--white);
+	}
 
-  #passcode{
-    width:100%;
-    background:transparent;
-    border:none;
-    border-bottom:1px solid var(--grey-line);
-    color:var(--gold-bright);
-    font-family:'Oranienbaum', serif;
-    font-size:1.6rem;
-    letter-spacing:0.5em;
-    text-align:center;
-    padding:12px 0 14px 0.5em;
-    outline:none;
-    transition:border-color 0.3s ease;
-  }
-  #passcode:focus{ border-color:var(--gold); }
-  #passcode::placeholder{
-    color:var(--white-dim);
-    letter-spacing:0.3em;
-    font-size:1rem;
-  }
+	#passcode{
+	width:100%;
+	background:transparent;
+	border:none;
+	border-bottom:1px solid var(--grey-line);
+	color:var(--gold-bright);
+	font-family:'Oranienbaum', serif;
+	font-size:1.6rem;
+	letter-spacing:0.5em;
+	text-align:center;
+	padding:12px 0 14px 0.5em;
+	outline:none;
+	transition:border-color 0.3s ease;
+	}
+	#passcode:focus{ border-color:var(--gold); }
+	#passcode::placeholder{
+	color:var(--white-dim);
+	letter-spacing:0.3em;
+	font-size:1rem;
+	}
 
-  #submit{
-    margin-top:26px;
-    background:none;
-    border:1px solid var(--gold);
-    color:var(--gold);
-    font-family:'Inter',sans-serif;
-    font-size:0.75rem;
-    letter-spacing:0.25em;
-    text-transform:uppercase;
-    padding:12px 30px;
-    cursor:pointer;
-    transition:background 0.25s ease, color 0.25s ease;
-  }
-  #submit:hover, #submit:focus-visible{
-    background:var(--gold);
-    color:var(--black);
-    outline:none;
-  }
+	#submit{
+	margin-top:26px;
+	background:none;
+	border:1px solid var(--gold);
+	color:var(--gold);
+	font-family:'Inter',sans-serif;
+	font-size:0.75rem;
+	letter-spacing:0.25em;
+	text-transform:uppercase;
+	padding:12px 30px;
+	cursor:pointer;
+	transition:background 0.25s ease, color 0.25s ease;
+	}
+	#submit:hover, #submit:focus-visible{
+	background:var(--gold);
+	color:var(--black);
+	outline:none;
+	}
 
-  #error{
-    margin-top:16px;
-    height:16px;
-    font-size:0.75rem;
-    letter-spacing:0.08em;
-    color:#b5544f;
-    opacity:0;
-    transition:opacity 0.3s ease;
-  }
-  #error.show{ opacity:1; }
+	#error{
+	margin-top:16px;
+	height:16px;
+	font-size:0.75rem;
+	letter-spacing:0.08em;
+	color:#b5544f;
+	opacity:0;
+	transition:opacity 0.3s ease;
+	}
+	#error.show{ opacity:1; }
 
-  @keyframes shake{
-    10%,90%{ transform:translateX(-1px); }
-    20%,80%{ transform:translateX(2px); }
-    30%,50%,70%{ transform:translateX(-4px); }
-    40%,60%{ transform:translateX(4px); }
-  }
-  .shake{ animation:shake 0.5s; }
+	@keyframes shake{
+	10%,90%{ transform:translateX(-1px); }
+	20%,80%{ transform:translateX(2px); }
+	30%,50%,70%{ transform:translateX(-4px); }
+	40%,60%{ transform:translateX(4px); }
+	}
+	.shake{ animation:shake 0.5s; }
 
-  /* ---------- REVEAL ---------- */
-  #reveal{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    z-index:3;
-    width:min(92vw, 460px);
-    max-height:88vh;
-    overflow-y:auto;
-    scrollbar-width:none;
-    -ms-overflow-style:none;
-    padding:4px 4px 24px;
-    text-align:center;
-    opacity:0;
-    pointer-events:none;
-    transition:opacity 0.8s ease;
-  }
-  #reveal::-webkit-scrollbar{ display:none; }
-  #reveal.active{ opacity:1; pointer-events:auto; }
+	/* ---------- REVEAL ---------- */
+	#reveal{
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+	z-index:3;
+	width:min(92vw, 460px);
+	max-height:88vh;
+	overflow-y:auto;
+	scrollbar-width:none;
+	-ms-overflow-style:none;
+	padding:4px 4px 24px;
+	text-align:center;
+	opacity:0;
+	pointer-events:none;
+	transition:opacity 0.8s ease;
+	}
+	#reveal::-webkit-scrollbar{ display:none; }
+	#reveal.active{ opacity:1; pointer-events:auto; }
 
-  .guest-label{
-    font-size:0.7rem;
-    letter-spacing:0.3em;
-    text-transform:uppercase;
-    color:var(--white-dim);
-    margin-bottom:6px;
-  }
+	.guest-label{
+	font-size:0.7rem;
+	letter-spacing:0.3em;
+	text-transform:uppercase;
+	color:var(--white-dim);
+	margin-bottom:6px;
+	}
 
-  .guest-name{
-    font-size:clamp(1.3rem, 4vw, 1.7rem);
-    color:var(--white);
-    margin-bottom:34px;
-    font-weight:400;
-  }
+	.guest-name{
+	font-size:clamp(1.3rem, 4vw, 1.7rem);
+	color:var(--white);
+	margin-bottom:34px;
+	font-weight:400;
+	}
 
-  .team-name{
-    position:relative;
-    font-size:clamp(2.2rem, 8vw, 3.4rem);
-    color:var(--gold-bright);
-    letter-spacing:0.03em;
-    margin-bottom:8px;
-    text-shadow:0 0 18px rgba(240,207,125,0.25);
-  }
+	.divider{
+	width:40px;
+	height:1px;
+	background:var(--grey-line);
+	margin:22px auto 26px;
+	}
 
-  /* glitch effect, triggered via .glitching class */
-  .team-name.glitching{
-    animation:glitch-anim 0.6s steps(2,end) 2;
-  }
-  .team-name.glitching::before,
-  .team-name.glitching::after{
-    content:attr(data-text);
-    position:absolute;
-    left:0; top:0; width:100%;
-    background:var(--black);
-  }
-  .team-name.glitching::before{
-    color:#8fb3c9;
-    clip-path:inset(0 0 55% 0);
-    animation:glitch-shift-1 0.6s steps(2,end) 2;
-  }
-  .team-name.glitching::after{
-    color:#b5544f;
-    clip-path:inset(55% 0 0 0);
-    animation:glitch-shift-2 0.6s steps(2,end) 2;
-  }
-  @keyframes glitch-anim{
-    0%,100%{ opacity:1; }
-    45%{ opacity:0.85; transform:translateX(1px); }
-    55%{ opacity:0.9; transform:translateX(-1px); }
-  }
-  @keyframes glitch-shift-1{
-    0%,100%{ transform:translate(0,0); }
-    50%{ transform:translate(-3px,-1px); }
-  }
-  @keyframes glitch-shift-2{
-    0%,100%{ transform:translate(0,0); }
-    50%{ transform:translate(3px,1px); }
-  }
+	.countdown-label{
+	font-size:0.7rem;
+	letter-spacing:0.3em;
+	text-transform:uppercase;
+	color:var(--white-dim);
+	margin-bottom:10px;
+	}
 
-  .divider{
-    width:40px;
-    height:1px;
-    background:var(--grey-line);
-    margin:22px auto 26px;
-  }
+	.countdown-timer{
+	font-family:'Oranienbaum', serif;
+	font-size:clamp(1.3rem, 4vw, 1.7rem);
+	letter-spacing:0.06em;
+	color:var(--gold-bright);
+	margin-bottom:34px;
+	}
 
-  .roster-label{
-    font-size:0.7rem;
-    letter-spacing:0.3em;
-    text-transform:uppercase;
-    color:var(--white-dim);
-    margin-bottom:16px;
-  }
+	.team-name{
+	position:relative;
+	font-size:clamp(2.2rem, 8vw, 3.4rem);
+	color:var(--gold-bright);
+	letter-spacing:0.03em;
+	margin-bottom:8px;
+	text-shadow:0 0 18px rgba(240,207,125,0.25);
+	}
 
-  #roster{
-    list-style:none;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-  }
-  .reveal-list li{
-    font-family:'Oranienbaum', serif;
-    font-size:1.1rem;
-    color:var(--white);
-    padding:9px 0;
-    border-bottom:1px solid var(--grey);
-    opacity:0;
-    transform:translateY(10px);
-    transition:opacity 0.6s ease, transform 0.6s ease;
-  }
-  .reveal-list li.shown{ opacity:1; transform:translateY(0); }
-  #roster li.you{ color:var(--gold-bright); }
-  #roster li.you::after{
-    content:' — you';
-    font-family:'Inter',sans-serif;
-    font-size:0.75rem;
-    color:var(--gold);
-    letter-spacing:0.05em;
-  }
+	/* glitch effect, triggered via .glitching class */
+	.team-name.glitching{
+	animation:glitch-anim 0.6s steps(2,end) 2;
+	}
+	.team-name.glitching::before,
+	.team-name.glitching::after{
+	content:attr(data-text);
+	position:absolute;
+	left:0; top:0; width:100%;
+	background:var(--black);
+	}
+	.team-name.glitching::before{
+	color:#8fb3c9;
+	clip-path:inset(0 0 55% 0);
+	animation:glitch-shift-1 0.6s steps(2,end) 2;
+	}
+	.team-name.glitching::after{
+	color:#b5544f;
+	clip-path:inset(55% 0 0 0);
+	animation:glitch-shift-2 0.6s steps(2,end) 2;
+	}
+	@keyframes glitch-anim{
+	0%,100%{ opacity:1; }
+	45%{ opacity:0.85; transform:translateX(1px); }
+	55%{ opacity:0.9; transform:translateX(-1px); }
+	}
+	@keyframes glitch-shift-1{
+	0%,100%{ transform:translate(0,0); }
+	50%{ transform:translate(-3px,-1px); }
+	}
+	@keyframes glitch-shift-2{
+	0%,100%{ transform:translate(0,0); }
+	50%{ transform:translate(3px,1px); }
+	}
 
-  .theme-link{
-    display:inline-block;
-    color:var(--gold-bright);
-    font-family:'Inter',sans-serif;
-    font-size:0.85rem;
-    letter-spacing:0.04em;
-    text-decoration:none;
-    border-bottom:1px solid var(--gold);
-    padding-bottom:2px;
-    transition:color 0.25s ease, border-color 0.25s ease;
-  }
-  .theme-link:hover{
-    color:var(--white);
-    border-color:var(--white-dim);
-  }
+	.roster-label{
+	font-size:0.7rem;
+	letter-spacing:0.3em;
+	text-transform:uppercase;
+	color:var(--white-dim);
+	margin-bottom:16px;
+	}
 
-  @media (prefers-reduced-motion: reduce){
-    .reveal-list li{ transition:opacity 0.3s ease; transform:none; }
-    .team-name.glitching{ animation:none; }
-    .team-name.glitching::before,
-    .team-name.glitching::after{ display:none; }
-  }
+	#roster{
+	list-style:none;
+	display:flex;
+	flex-direction:column;
+	gap:10px;
+	}
+	.reveal-list li{
+	font-family:'Oranienbaum', serif;
+	font-size:1.1rem;
+	color:var(--white);
+	padding:9px 0;
+	border-bottom:1px solid var(--grey);
+	opacity:0;
+	transform:translateY(10px);
+	transition:opacity 0.6s ease, transform 0.6s ease;
+	}
+	.reveal-list li.shown{ opacity:1; transform:translateY(0); }
+	#roster li.you{ color:var(--gold-bright); }
+	#roster li.you::after{
+	content:' — you';
+	font-family:'Inter',sans-serif;
+	font-size:0.75rem;
+	color:var(--gold);
+	letter-spacing:0.05em;
+	}
+
+	.theme-link{
+	display:inline-block;
+	color:var(--gold-bright);
+	font-family:'Oranienbaum', serif;
+	font-size:claimp(1.3rem, 4vw, 1.7rem);
+	letter-spacing:0.04em;
+	text-decoration:none;
+	border-bottom:1px solid var(--gold);
+	padding-bottom:2px;
+	transition:color 0.25s ease, border-color 0.25s ease;
+	}
+	.theme-link:hover{
+	color:var(--white);
+	border-color:var(--white-dim);
+	}
+
+	@media (prefers-reduced-motion: reduce){
+	.reveal-list li{ transition:opacity 0.3s ease; transform:none; }
+	.team-name.glitching{ animation:none; }
+	.team-name.glitching::before,
+	.team-name.glitching::after{ display:none; }
+	}
 </style>
 </head>
 <body>
