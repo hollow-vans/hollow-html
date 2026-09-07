@@ -159,7 +159,7 @@
 	#reveal::-webkit-scrollbar{ display:none; }
 	#reveal.active{ opacity:1; pointer-events:auto; }
 
-	.guest-label{
+	.subheader-grey{
 	font-size:0.7rem;
 	letter-spacing:0.3em;
 	text-transform:uppercase;
@@ -167,19 +167,11 @@
 	margin-bottom:6px;
 	}
 
-	.guest-name{
+	.guest-name display{
 	font-size:clamp(1.3rem, 4vw, 1.7rem);
 	color:var(--white);
 	margin-bottom:34px;
 	font-weight:400;
-	}
-
-	.countdown-label{
-	font-size:0.7rem;
-	letter-spacing:0.3em;
-	text-transform:uppercase;
-	color:var(--white-dim);
-	margin-bottom:10px;
 	}
 
 	.countdown-timer{
@@ -239,14 +231,6 @@
 	height:1px;
 	background:var(--grey-line);
 	margin:22px auto 26px;
-	}
-
-	.roster-label{
-	font-size:0.7rem;
-	letter-spacing:0.3em;
-	text-transform:uppercase;
-	color:var(--white-dim);
-	margin-bottom:16px;
 	}
 
 	#roster{
@@ -331,10 +315,10 @@
   </div>
 
   <div id="reveal">
-    <div class="guest-label">Unlocked for</div>
+    <div class="subheader-grey">Unlocked for</div>
     <div class="guest-name display" id="guestName"></div>
 	
-	<div class="countdown-label">Team Revealed In</div>
+	<div class="subheader-grey">Team Revealed October 1st</div>
 	<div class="countdown-timer display" id="countdown">00d 00h 00m 00s</div>
 	<div class="divider"></div>
 	
@@ -346,7 +330,7 @@
 
     <div class="divider"></div>
     <div class="team-name display">Trivia Movie List</div>
-	<div class="guest-label">Misfit Kids and Monsters</div>
+	<div class="subheader-grey">Misfit Kids and Monsters</div>
     <ul id="movieList" class="reveal-list"></ul>
   </div>
 </div>
