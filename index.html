@@ -159,6 +159,20 @@
 	#reveal::-webkit-scrollbar{ display:none; }
 	#reveal.active{ opacity:1; pointer-events:auto; }
 
+	.newline{ display:block; }
+
+	.maintitle-yellow{
+	font-size:clamp(2.2rem, 8vw, 3.4rem);
+	color:var(--gold-bright);
+	margin-bottom:8px;
+	}
+
+	.title-white{
+	font-size:clamp(1.3rem, 4vw, 1.7rem);
+	color:var(--white);
+	margin-bottom:34px;
+	}
+
 	.subheader-grey{
 	font-size:0.7rem;
 	letter-spacing:0.3em;
@@ -318,13 +332,15 @@
     <div class="subheader-grey">Unlocked for</div>
     <div class="guest-name display" id="guestName"></div>
 	
-	<div class ="team-name display" id="Halloween Party 2026"></div>
-	<div class="guest-name" id="Saturday, October 24th, 2026 | 6:00 PM"></div>
+	<div class ="maintitle-yellow" id="Halloween Party 2026"></div>
+	<div class="eyebrow" id="Saturday, October 24th, 2026 | 6:00 PM"></div>
 	<div class="subheader-grey">Bring Your Own Beer</div>
 	
 	<div class="divider"></div>
 	<a id="sheetLink" class="theme-link" href="#" target="_blank" rel="noopener">Potluck Sign Up</a>
 
+	<div class="divider"></div>
+	  
     <div class="subheader-grey">Team Revealed October 1st</div>
 	<div class="countdown-timer display" id="countdown">00d 00h 00m 00s</div>
 	<div class="divider"></div>
@@ -337,11 +353,12 @@
 	<div class="subheader-grey">Misfit Kids and Monsters</div>
     <ul id="movieList" class="reveal-list"></ul>
 
-
-	<div class="team-name display">\nBonus Points</div>
-	<div class="guest-name" id="RSVP by Friday, September 25th, 2026"></div>
-	<div class="guest-name" id="Bring Halloween Themed Potluck (minimal effort accepted)"></div>
-    <div class="guest-name" id="Return your 'Admit One' ticket"></div>
+	<div class="newline"></div>
+	
+	<div class="team-name display">Bonus Points</div>
+	<div class="eyebrow" id="RSVP by Friday, September 25th, 2026"></div>
+	<div class="eyebrow" id="Bring Halloween Themed Potluck (minimal effort accepted)"></div>
+    <div class="eyebrow" id="Return your 'Admit One' ticket"></div>
 	  
   </div>
 </div>
