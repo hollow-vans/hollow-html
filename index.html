@@ -159,19 +159,11 @@
 	#reveal::-webkit-scrollbar{ display:none; }
 	#reveal.active{ opacity:1; pointer-events:auto; }
 
-	.newline{ display:block; }
-
-	.maintitle-yellow{
-	font-size:clamp(2.2rem, 8vw, 3.4rem);
-	color:var(--gold-bright);
-	margin-bottom:8px;
-	}
-
-	.title-white{
-	font-size:1.7rem;
-	letter-spacing:0.3em;
-	color:var(--white);
-	margin-bottom:34px;
+	.newline{
+	width:1px;
+	height:1px;
+	background:var(--black);
+	margin:22px auto 26px;
 	}
 
 	.subheader-grey{
@@ -341,21 +333,24 @@
 	<a id="sheetLink" class="theme-link" href="#" target="_blank" rel="noopener">Potluck Sign Up</a>
 
 	<div class="divider"></div>
-	  
-    <div class="subheader-grey">Team Revealed October 1st</div>
-	<div class="countdown-timer display" id="countdown">00d 00h 00m 00s</div>
-	<div class="divider"></div>
-	
-	<div class="team-name display" id="teamName"></div>
+
+	/*---------------- Team Reveal ---------------- */
+    <div class="team-name display" id="teamName"></div>
     <ul id="roster" class="reveal-list"></ul>
 
-    <div class="divider"></div>
-    <div class="team-name display">Trivia Movie List</div>
-	<div class="subheader-grey">Misfit Kids and Monsters</div>
+	<div class="subheader-grey">Team Revealed October 1st</div>
+	<div class="countdown-timer display" id="countdown">00d 00h 00m 00s</div>
+
+	<div class="newline"></div>
+	  
+    /*---------------- Movie Trivia ---------------- */
+	<div class="team-name display">Trivia Movie List</div>
+	<div class="eyebrow">Misfit Kids and Monsters</div>
     <ul id="movieList" class="reveal-list"></ul>
 
 	<div class="newline"></div>
-	
+	  
+	/*---------------- Bonus Points ---------------- */
 	<div class="team-name display">Bonus Points</div>
     <div class="guest-name display">RSVP by Friday, September 25th, 2026</div>
 	<div class="guest-name display">Bring Halloween Themed Potluck (minimal effort accepted)</div>
