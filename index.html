@@ -177,7 +177,7 @@
 	.guest-name{
 	font-size:clamp(1.3rem, 4vw, 1.7rem);
 	color:var(--white);
-	margin-bottom:34px;
+	margin-bottom:20px;
 	font-weight:400;
 	}
 
@@ -351,9 +351,15 @@
 
 	<!--Bonus Points-->
 	<div class="team-name display">*Bonus Points*</div>
-    <div class="guest-name display">RSVP by Friday, September 25th, 2026</div>
-	<div class="guest-name display">Bring Halloween Themed Potluck
-	(minimal effort accepted)</div>
+    
+	<div class="guest-name display">RSVP by Friday, September 25th, 2026</div>
+	<a id="rsvpLink" class="theme-link" href="#" target="_blank" rel="noopener">RSVP</a>
+	  <div class="newline"></div>
+	
+	<div class="guest-name display">Bring Halloween Themed Potluck</div>
+	<div class="subheader-yellow">(minimal effort accepted)</div>
+	<div class="newline"></div>
+	
 	<div class="guest-name display">Return your 'Admit One' ticket</div>
 	
 	<div class="newline"></div>
@@ -409,6 +415,7 @@
 	team reveal — e.g. party details, a packing list, directions.
 	============================================================ */
 	const SPREADSHEET_URL = "https://docs.google.com/spreadsheets/d/1kW8hWA10BKXkQwlsXiq55qwD-PBtSUJ5NzBVbqKysrY/edit?usp=sharing";
+	const RSVP_URL = "https://forms.gle/bf6wso9T6ZJEYCvVA";
 
 	/* ============================================================
 	EDIT: the three movies for trivia night. Add an image file for each in the same folder as this HTML file.
@@ -422,6 +429,7 @@
 	];
 
 	document.getElementById('sheetLink').href = SPREADSHEET_URL;
+	document.getElementById('rsvpLink').href = RSVP_URL;
 
 	const movieListEl = document.getElementById('movieList');
 	TRIVIA_MOVIES.forEach(movie=>{
