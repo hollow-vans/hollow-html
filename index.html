@@ -306,6 +306,158 @@
 	.team-name.glitching::before,
 	.team-name.glitching::after{ display:none; }
 	}
+
+	/* ---------- GAMES LIST ---------- */
+	.game-list{
+	list-style:none;
+	display:flex;
+	flex-direction:column;
+	gap:14px;
+	margin-top:14px;
+	}
+	.game-link{
+	display:block;
+	width:100%;
+	background:none;
+	border:none;
+	padding:6px 0;
+	cursor:pointer;
+	/* font-size / color / weight come from .guest-name, font from .display */
+	transition:color 0.25s ease, letter-spacing 0.25s ease, text-shadow 0.25s ease, transform 0.25s ease;
+	}
+	.game-link:hover,
+	.game-link:focus-visible{
+	color:var(--gold-bright);
+	letter-spacing:0.08em;
+	text-shadow:0 0 16px rgba(240,207,125,0.35);
+	transform:translateY(-2px);
+	outline:none;
+	}
+
+	/* ---------- RULES PAGE ---------- */
+	#rules{
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+	z-index:3;
+	width:min(92vw, 460px);
+	max-height:88vh;
+	overflow-y:auto;
+	scrollbar-width:none;
+	-ms-overflow-style:none;
+	padding:4px 4px 24px;
+	text-align:center;
+	opacity:0;
+	pointer-events:none;
+	transition:opacity 0.8s ease;
+	}
+	#rules::-webkit-scrollbar{ display:none; }
+	#rules.active{ opacity:1; pointer-events:auto; }
+
+	.rules-list{
+	list-style:none;
+	counter-reset:rule;
+	text-align:left;
+	margin-bottom:28px;
+	}
+	.rules-list li{
+	counter-increment:rule;
+	position:relative;
+	padding:12px 0 12px 34px;
+	border-bottom:1px solid var(--grey);
+	font-size:0.95rem;
+	line-height:1.6;
+	color:var(--white);
+	opacity:0;
+	transform:translateY(10px);
+	transition:opacity 0.6s ease, transform 0.6s ease;
+	}
+	.rules-list li::before{
+	content:counter(rule);
+	position:absolute;
+	left:0;
+	top:12px;
+	font-family:'Oranienbaum', serif;
+	font-size:1.2rem;
+	color:var(--gold);
+	}
+	.rules-list li.shown{ opacity:1; transform:translateY(0); }
+	
+	.points-list{
+	list-style:none;
+	text-align:left;
+	margin-bottom:28px;
+	}
+	.points-list li{
+	padding:12px 0;
+	border-bottom:1px solid var(--grey);
+	opacity:0;
+	transform:translateY(10px);
+	transition:opacity 0.6s ease, transform 0.6s ease;
+	}
+	.points-list li.shown{ opacity:1; transform:translateY(0); }
+	.points-place{
+	font-family:'Oranienbaum', serif;
+	font-size:1.15rem;
+	color:var(--gold-bright);
+	margin-bottom:4px;
+	}
+	.points-desc{
+	font-size:0.9rem;
+	color:var(--white-dim);
+	line-height:1.5;
+	}
+	
+	.back-btn{
+	background:none;
+	border:1px solid var(--gold);
+	color:var(--gold);
+	font-family:'Inter',sans-serif;
+	font-size:0.75rem;
+	letter-spacing:0.25em;
+	text-transform:uppercase;
+	padding:12px 30px;
+	cursor:pointer;
+	transition:background 0.25s ease, color 0.25s ease;
+	}
+	.back-btn:hover, .back-btn:focus-visible{
+	background:var(--gold);
+	color:var(--black);
+	outline:none;
+	}
+	#roster li.you{ color:var(--gold-bright); }
+	#roster li.you::after{
+	content:' — you';
+	font-family:'Oranienbaum',sans-serif;
+	font-size:0.75rem;
+	color:var(--gold);
+	letter-spacing:0.05em;
+	}
+
+	.theme-link{
+	display:inline-block;
+	color:var(--gold-bright);
+	font-family:'Oranienbaum', serif;
+	font-size:clamp(1.3rem, 4vw, 1.7rem);
+	letter-spacing:0.04em;
+	text-decoration:none;
+	border-bottom:1px solid var(--gold);
+	padding-bottom:2px;
+	transition:color 0.25s ease, border-color 0.25s ease;
+	}
+	.theme-link:hover{
+	color:var(--white);
+	border-color:var(--white-dim);
+	}
+
+	@media (prefers-reduced-motion: reduce){
+	.reveal-list li, .rules-list li{ transition:opacity 0.3s ease; transform:none; }
+	.team-name.glitching{ animation:none; }
+	.team-name.glitching::before,
+	.team-name.glitching::after{ display:none; }
+	}
+
 </style>
 </head>
 <body>
@@ -324,29 +476,32 @@
   <div id="reveal">
     <div class="subheader-grey">Unlocked for</div>
     <div class="guest-name display" id="guestName"></div>
-
     <div class="team-name display">Halloween Party 2026</div>
 	<h1 class="guest-name display">Saturday, October 24th, 2026 | 6:00 PM</h1>
 	<div class="subheader-yellow">Bring Your Own Beer</div>
-	
-	<div class="divider"></div>
+	<div class="newline"></div>
 	<a id="sheetLink" class="theme-link" href="#" target="_blank" rel="noopener">Potluck Sign Up</a>
-
-	<div class="divider"></div>
+	<div class="newline"></div>
+    <div class="newline"></div>
 
 	<!--Team Reveal-->
-	<div class="subheader-grey">Team Revealed October 1st</div>
-	<div class="countdown-timer display" id="countdown">00d 00h 00m 00s</div>
 	<div class="team-name display" id="teamName"></div>
     <ul id="roster" class="reveal-list"></ul>
-
-	<div class="divider"></div>
+	<div class="newline"></div>
+	<div class="newline"></div>
 
 	<!--Movie Trivia-->
 	<div class="team-name display">Trivia Movie List</div>
 	<div class="subheader-grey">Misfit Kids and Monsters</div>
     <ul id="movieList" class="reveal-list"></ul>
-
+	<div class="newline"></div>
+	<div class="newline"></div>
+	
+	<!--Game Reveal-->
+	<div class="subheader-grey">Games Revealed October 17th</div>
+	<div class="countdown-timer display" id="countdown">00d 00h 00m 00s</div>
+	<div class="team-name display">Games</div>
+	<ul id="gameList" class="game-list"></ul>
 	<div class="newline"></div>
 
 	<!--Bonus Points-->
@@ -354,7 +509,7 @@
     
 	<div class="guest-name display">RSVP by Friday, September 25th, 2026</div>
 	<a id="rsvpLink" class="theme-link" href="#" target="_blank" rel="noopener">RSVP</a>
-	  <div class="newline"></div>
+	<div class="newline"></div>
 	
 	<div class="guest-name display">Bring Halloween Themed Potluck</div>
 	<div class="subheader-yellow">(minimal effort accepted)</div>
@@ -367,6 +522,20 @@
     <div class="newline"></div>
 
   </div>
+
+	
+	<div id="rules">
+		<div class="subheader-grey">Game Rules</div>
+		<div class="team-name display" id="rulesTitle"></div>
+		<div class="divider"></div>
+		<ul id="rulesList" class="rules-list"></ul>
+		<div class="divider"></div>
+		<div class="team-name display">Points</div>
+		<ul id="pointsList" class="points-list"></ul>
+		<button id="rulesBack" class="back-btn">Back</button>
+	</div>
+	
+
 </div>
 
 <script>
@@ -379,42 +548,38 @@
 	============================================================ */
 	const GUESTS = {
 	// ...add one entry per guest with their own unique 4-digit code
-	"1398": { name: "Vanessa", team: " Team Name", roster: ["Vanessa","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"7625": { name: "Marisol", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"4764": { name: "Jesus", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"1355": { name: "Juanito", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"1706": { name: "Evelyn", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"5925": { name: "Diego", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"2806": { name: "Adrian", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"7870": { name: "Isaac", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"4649": { name: "Willy", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"1233": { name: "Jonathan", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"7186": { name: "Daniel", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"6506": { name: "Nathalie", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"5265": { name: "Luis", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"8648": { name: "Alex", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"4728": { name: "Selina", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"8339": { name: "Lily", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"4635": { name: "Iris", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"5610": { name: "Gaby", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"5917": { name: "Xavier", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"1774": { name: "Omar", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"3939": { name: "Dennis", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"9852": { name: "Kathya", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"3985": { name: "Nathalie", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"8794": { name: "Jamil", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"9919": { name: "Yvonne", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"6543": { name: "Ricky", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"9969": { name: "Nau", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-	"3213": { name: "Michelle", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-    "2237": { name: "Amber", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-    "5348": { name: "Israel", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-    "4982": { name: "Javier", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-    "7288": { name: "Ivonne", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-    "2661": { name: "Dahlia", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-    "3328": { name: "Marlea", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-    "3369": { name: "John", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] },
-    "5716": { name: "Chel", team: " Team Name", roster: ["Guest One","Guest Two","Guest Three","Guest Four","Guest Five","Guest Six"] }
+	"1398": { name: "Vanessa", team: " Ghost Host", roster: ["Vanessa"] },
+	"4728": { name: "Selina", team: " The Black Cats", roster: ["Selina","Amber","Dennis","Diego","Jamil"] },
+	"2237": { name: "Amber", team: " The Black Cats", roster: ["Amber","Dennis","Diego","Jamil","Selina"] },
+	"5925": { name: "Diego", team: " The Black Cats", roster: ["Diego","Amber","Dennis","Jamil","Selina"] },
+	"8794": { name: "Jamil", team: " The Black Cats", roster: ["Jamil","Amber","Dennis","Diego","Jamil"] },
+	"3939": { name: "Dennis", team: " The Black Cats", roster: ["Dennis","Amber","Diego","Jamil","Selina"] },
+	"7625": { name: "Marisol", team: " The Bloodhounds", roster: ["Marisol","Johnathan S","Juan","Lily","Ricky"] },
+	"8339": { name: "Lily", team: " The Bloodhounds", roster: ["Lily","Johnathan S","Juan","Marisol","Ricky"] },
+	"1355": { name: "Juan", team: " The Bloodhounds", roster: ["Juan","Johnathan S","Lily","Marisol","Ricky"] },
+	"3369": { name: "Johnathan S", team: " The Bloodhounds", roster: ["Johnathan S","Juan","Lily","Marisol","Ricky"] },
+	"6543": { name: "Ricky", team: " The Bloodhounds", roster: ["Ricky","Johnathan S","Juan","Lily","Marisol"] },
+	"1706": { name: "Evelyn", team: " The Dead Society", roster: ["Evelyn","Alex","Chel","Luis","Nathalie R","Xavier"] },
+	"5917": { name: "Xavier", team: " The Dead Society", roster: ["Xavier","Alex","Chel","Evelyn","Luis","Nathalie R"] },
+	"8648": { name: "Alex", team: " The Dead Society", roster: ["Alex","Chel","Evelyn","Luis","Nathalie R","Xavier"] },
+	"3985": { name: "Nathalie R", team: " The Dead Society", roster: ["Nathalie R","Alex","Chel","Evelyn","Luis","Xavier"] },
+	"5716": { name: "Chel", team: " The Dead Society", roster: ["Chel","Alex","Evelyn","Luis","Nathalie R","Xavier"] },
+	"5265": { name: "Luis", team: " The Dead Society", roster: ["Luis","Alex","Chel","Evelyn","Nathalie R","Xavier"] },
+	"2806": { name: "Adrian", team: " The Skeleton Crew", roster: ["Adrian","Iris","Isaac","Kathya","Yvonne"] },
+	"4635": { name: "Iris", team: " The Skeleton Crew", roster: ["Iris","Adrian","Isaac","Kathya","Yvonne"] },
+	"7870": { name: "Isaac", team: " The Skeleton Crew", roster: ["Isaac","Adrian","Iris","Kathya","Yvonne"] },
+	"9919": { name: "Yvonne", team: " The Skeleton Crew", roster: ["Yvonne","Adrian","Iris","Isaac","Kathya"] },
+	"9852": { name: "Kathya", team: " The Skeleton Crew", roster: ["Kathya","Adrian","Iris","Isaac","Yvonne"] },
+	"1774": { name: "Omar", team: " The Trick or Treaters", roster: ["Omar","Daniel","Gaby","Jonathan O","Nau"] },
+	"9969": { name: "Nau", team: " The Trick or Treaters", roster: ["Nau","Daniel","Gaby","Jonathan O","Omar"] },
+	"1233": { name: "Jonathan O", team: " The Trick or Treaters", roster: ["Jonathan O","Daniel","Gaby","Nau","Omar"] },
+	"5610": { name: "Gaby", team: " The Trick or Treaters", roster: ["Gaby","Daniel","Jonathan O","Nau","Omar"] },
+	"7186": { name: "Daniel", team: " The Trick or Treaters", roster: ["Daniel","Gaby","Jonathan O","Nau","Omar"] },
+	"5348": { name: "Israel ", team: " The Warewolves", roster: ["Israel ","Jesus","Marlea","Nathalie A","Willy"] },
+	"3328": { name: "Marlea", team: " The Warewolves", roster: ["Marlea","Israel","Jesus","Nathalie A","Willy"] },
+	"4649": { name: "Willy", team: " The Warewolves", roster: ["Willy","Israel","Jesus","Marlea","Nathalie A"] },
+	"6506": { name: "Nathalie A", team: " The Warewolves", roster: ["Nathalie A","Israel","Jesus","Marlea","Willy"] },
+	"4764": { name: "Jesus", team: " The Warewolves", roster: ["Jesus","Israel","Marlea","Nathalie A","Willy"] }
 	};
 	/* ============================================================ */
 
@@ -437,6 +602,96 @@
 	document.getElementById('sheetLink').href = SPREADSHEET_URL;
 	document.getElementById('rsvpLink').href = RSVP_URL;
 
+	/* ============================================================
+	EDIT: the games and their rules. "name" is the label guests
+	tap; "rules" is a list of rule lines shown on the rules page.
+	EDIT GAME # to the game name when ready to reveal.
+	============================================================ */
+	const GAMES = [
+	{ name: "Game 1", rules: ["Players are surrounding their assigned table. Bones are distributed on the table.", "Players walk around the table while the music plays.", "When the music stops, players must grab a bone from the table.", "Players who do not grab a bone are Eliminated.", "Two bones are removed from the table before the next round beings.","Repeat until last player standing."],
+	points: [
+	{ place: "1st Place", description: "100 points awarded to the winning team. An additional 50 points awarded to the individual player." },
+	{ place: "2nd Place", description: "75 points awarded to the winning team. An additional 50 points awarded to the individual player." },
+	{ place: "3rd Place", description: "50 points awarded to the winning team. An additional 25 points awarded to the individual player." }
+	] },
+	{ name: "Game 2", rules: ["Rule one goes here.", "Rule two goes here.", "Rule three goes here."],
+	points: [
+	{ place: "1st Place", description: "100 points awarded to the winning team. An additional 50 points awarded to the individual Mummy." },
+	{ place: "2nd Place", description: "75 points awarded to the winning team. An additional 50 points awarded to the individual Mummy." },
+	{ place: "3rd Place", description: "50 points awarded to the winning team. An additional 25 points awarded to the individual Mummy." }
+	] },
+	{ name: "Game 3", rules: ["Four corners are placed around the area.", "Players are given 10 seconds to choose a corner.", "A random corner is chosen as the Corner of Death.", "All players in the Corner of Death are Eliminated.", "Repeat until last player standing."],
+	points: [
+	{ place: "1st Place", description: "100 points awarded to the winning team. An additional 50 points awarded to the individual player." },
+	{ place: "2nd Place", description: "75 points awarded to the winning team. An additional 50 points awarded to the individual player." },
+	{ place: "3rd Place", description: "50 points awarded to the winning team. An additional 25 points awarded to the individual player." }
+	] }
+	];
+
+	const gameListEl = document.getElementById('gameList');
+	const rulesEl = document.getElementById('rules');
+	const rulesTitleEl = document.getElementById('rulesTitle');
+	const rulesListEl = document.getElementById('rulesList');
+	const pointsListEl = document.getElementById('pointsList');
+	const rulesBackBtn = document.getElementById('rulesBack');
+
+	GAMES.forEach(game=>{
+	const li = document.createElement('li');
+	const btn = document.createElement('button');
+	btn.type = 'button';
+	btn.className = 'guest-name display game-link';
+	btn.textContent = game.name;
+	//Uncomment on October 17th to enable rules reveal***************
+	//btn.addEventListener('click', ()=> openRules(game));
+	li.appendChild(btn);
+	gameListEl.appendChild(li);
+	});
+
+	function openRules(game){
+	document.getElementById('reveal').classList.remove('active');
+	rulesTitleEl.textContent = game.name;
+	rulesListEl.innerHTML = '';
+	game.rules.forEach(text=>{
+	const li = document.createElement('li');
+	li.textContent = text;
+	rulesListEl.appendChild(li);
+	});
+	pointsListEl.innerHTML = '';
+	game.points.forEach(p=>{
+	const li = document.createElement('li');
+	const place = document.createElement('div');
+	place.className = 'points-place';
+	place.textContent = p.place;
+	const desc = document.createElement('div');
+	desc.className = 'points-desc';
+	desc.textContent = p.description;
+	li.appendChild(place);
+	li.appendChild(desc);
+	pointsListEl.appendChild(li);
+	});
+	rulesEl.scrollTop = 0;
+	setTimeout(()=>{
+	rulesEl.classList.add('active');
+	const ruleItems = rulesListEl.querySelectorAll('li');
+	ruleItems.forEach((li, i)=>{
+	setTimeout(()=> li.classList.add('shown'), 300 + i * 300);
+	});
+	const pointStart = 300 + ruleItems.length * 300 + 200;
+	pointsListEl.querySelectorAll('li').forEach((li, i)=>{
+	setTimeout(()=> li.classList.add('shown'), pointStart + i * 300);
+	});
+	}, 500);
+	}
+
+	rulesBackBtn.addEventListener('click', ()=>{
+	rulesEl.classList.remove('active');
+	setTimeout(()=> document.getElementById('reveal').classList.add('active'), 500);
+	});
+
+	/* ============================================================
+	Movie List for Trivia Night. Each movie has a title and an optional image.
+	============================================================ */
+
 	const movieListEl = document.getElementById('movieList');
 	TRIVIA_MOVIES.forEach(movie=>{
 	const li = document.createElement('li');
@@ -455,12 +710,17 @@
 	movieListEl.appendChild(li);
 	});
 
-	/*---------------- live countdown to October 1st ---------------- */
+	/*---------------- live countdown to October 1st Teams ---------------- */
 	function getOctoberFirst(){
 	const now = new Date();
 	return new Date(now.getFullYear(), 9, 1, 0, 0, 0); // Month is 0-indexed (9 = October)
 	}
 
+	/*---------------- live countdown to October 17th Games ---------------- */
+	function getOctoberSeventeen(){
+	const now = new Date();
+	return new Date(now.getFullYear(), 9, 17, 0, 0, 0); // Month is 0-indexed (9 = October)
+	}
 
 	/*---------------- live countdown to party date MIDNIGHT UPDATE ---------------- */
 	function getPartyDate(){
@@ -472,7 +732,7 @@
 
 	function tickCountdown(){
 	const el = document.getElementById('countdown');
-	const diff = getOctoberFirst() - new Date();
+	const diff = getOctoberSeventeen() - new Date();
 	if(diff <= 0){
 		el.textContent = "00d 00h 00m 00s";
 		return;
