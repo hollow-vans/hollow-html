@@ -288,7 +288,7 @@
 	display:inline-block;
 	color:var(--gold-bright);
 	font-family:'Oranienbaum', serif;
-	font-size:clamp(1.4rem, 4vw, 1.7rem);
+	font-size:clamp(2rem, 7vw, 3rem);
 	letter-spacing:0.04em;
 	text-decoration:none;
 	border-bottom:1px solid var(--gold);
@@ -300,6 +300,23 @@
 	border-color:var(--white-dim);
 	}
 
+	.scoreboard-link{
+	display:inline-block;
+	color:var(--gold-bright);
+	font-family:'Oranienbaum', serif;
+	font-size:clamp(2rem, 7vw, 2.8rem);
+	letter-spacing:0.04em;
+	text-decoration:none;
+	border-bottom:1px solid var(--gold);
+	padding-bottom:2px;
+	transition:color 0.25s ease, border-color 0.25s ease;
+	}
+	.scoreboard-link:hover{
+	color:var(--white);
+	border-color:var(--white-dim);
+	}
+	
+	
 	@media (prefers-reduced-motion: reduce){
 	.reveal-list li{ transition:opacity 0.3s ease; transform:none; }
 	.team-name.glitching{ animation:none; }
@@ -383,7 +400,7 @@
 	color:var(--gold);
 	}
 	.rules-list li.shown{ opacity:1; transform:translateY(0); }
-	
+
 	.points-list{
 	list-style:none;
 	text-align:left;
@@ -408,7 +425,7 @@
 	color:var(--white-dim);
 	line-height:1.5;
 	}
-	
+
 	.back-btn{
 	background:none;
 	border:1px solid var(--gold);
@@ -480,28 +497,29 @@
 	<h1 class="guest-name display">Saturday, October 24th, 2026 | 6:00 PM</h1>
 	<div class="subheader-yellow">Bring Your Own Beer</div>
 	<div class="newline"></div>
+    <div class="countdown-timer display" id="countdown">00d 00h 00m 00s</div>
 	<a id="sheetLink" class="theme-link" href="#" target="_blank" rel="noopener">Potluck Sign Up</a>
 	<div class="newline"></div>
-    <div class="newline"></div>
 
 	<!--Team Reveal-->
 	<div class="team-name display" id="teamName"></div>
     <ul id="roster" class="reveal-list"></ul>
 	<div class="newline"></div>
+
+	<!--Game Reveal-->
+	<a id="scoreboardLink" class="scoreboard-link" href="#" target="_blank" rel="noopener">Scoreboard</a>
 	<div class="newline"></div>
 
+	<div class="team-name display">Team Games</div>
+	<div class="subheader-grey">Select Game to reveal Game Details</div>
+
+	<ul id="gameList" class="game-list"></ul>
+	<div class="newline"></div>
+	  
 	<!--Movie Trivia-->
 	<div class="team-name display">Trivia Movie List</div>
 	<div class="subheader-grey">Misfit Kids and Monsters</div>
     <ul id="movieList" class="reveal-list"></ul>
-	<div class="newline"></div>
-	<div class="newline"></div>
-	
-	<!--Game Reveal-->
-	<div class="subheader-grey">Games Revealed October 17th</div>
-	<div class="countdown-timer display" id="countdown">00d 00h 00m 00s</div>
-	<div class="team-name display">Games</div>
-	<ul id="gameList" class="game-list"></ul>
 	<div class="newline"></div>
 
 	<!--Bonus Points-->
@@ -533,6 +551,8 @@
 		<div class="team-name display">Points</div>
 		<ul id="pointsList" class="points-list"></ul>
 		<button id="rulesBack" class="back-btn">Back</button>
+		<div class="newline"></div>
+		<div class="newline"></div>
 	</div>
 	
 
@@ -549,11 +569,12 @@
 	const GUESTS = {
 	// ...add one entry per guest with their own unique 4-digit code
 	"1398": { name: "Vanessa", team: " Ghost Host", roster: ["Vanessa"] },
-	"4728": { name: "Selina", team: " The Black Cats", roster: ["Selina","Amber","Dennis","Diego","Jamil"] },
-	"2237": { name: "Amber", team: " The Black Cats", roster: ["Amber","Dennis","Diego","Jamil","Selina"] },
-	"5925": { name: "Diego", team: " The Black Cats", roster: ["Diego","Amber","Dennis","Jamil","Selina"] },
-	"8794": { name: "Jamil", team: " The Black Cats", roster: ["Jamil","Amber","Dennis","Diego","Jamil"] },
-	"3939": { name: "Dennis", team: " The Black Cats", roster: ["Dennis","Amber","Diego","Jamil","Selina"] },
+	"2661": { name: "Dalia", team: " The Black Cats", roster: ["Dalia","Amber","Dennis","Diego","Jamil","Selina"] },
+	"4728": { name: "Selina", team: " The Black Cats", roster: ["Selina","Amber","Dalia","Dennis","Diego","Jamil"] },
+	"2237": { name: "Amber", team: " The Black Cats", roster: ["Amber","Dalia","Dennis","Diego","Jamil","Selina"] },
+	"5925": { name: "Diego", team: " The Black Cats", roster: ["Diego","Amber","Dalia","Dennis","Jamil","Selina"] },
+	"8794": { name: "Jamil", team: " The Black Cats", roster: ["Jamil","Amber","Dalia","Dennis","Diego","Jamil"] },
+	"3939": { name: "Dennis", team: " The Black Cats", roster: ["Dennis","Amber","Dalia","Diego","Jamil","Selina"] },
 	"7625": { name: "Marisol", team: " The Bloodhounds", roster: ["Marisol","Johnathan S","Juan","Lily","Ricky"] },
 	"8339": { name: "Lily", team: " The Bloodhounds", roster: ["Lily","Johnathan S","Juan","Marisol","Ricky"] },
 	"1355": { name: "Juan", team: " The Bloodhounds", roster: ["Juan","Johnathan S","Lily","Marisol","Ricky"] },
@@ -565,11 +586,12 @@
 	"3985": { name: "Nathalie R", team: " The Dead Society", roster: ["Nathalie R","Alex","Chel","Evelyn","Luis","Xavier"] },
 	"5716": { name: "Chel", team: " The Dead Society", roster: ["Chel","Alex","Evelyn","Luis","Nathalie R","Xavier"] },
 	"5265": { name: "Luis", team: " The Dead Society", roster: ["Luis","Alex","Chel","Evelyn","Nathalie R","Xavier"] },
-	"2806": { name: "Adrian", team: " The Skeleton Crew", roster: ["Adrian","Iris","Isaac","Kathya","Yvonne"] },
-	"4635": { name: "Iris", team: " The Skeleton Crew", roster: ["Iris","Adrian","Isaac","Kathya","Yvonne"] },
-	"7870": { name: "Isaac", team: " The Skeleton Crew", roster: ["Isaac","Adrian","Iris","Kathya","Yvonne"] },
-	"9919": { name: "Yvonne", team: " The Skeleton Crew", roster: ["Yvonne","Adrian","Iris","Isaac","Kathya"] },
-	"9852": { name: "Kathya", team: " The Skeleton Crew", roster: ["Kathya","Adrian","Iris","Isaac","Yvonne"] },
+	"4982": { name: "Javier", team: " The Skeleton Crew", roster: ["Javier","Adrian","Iris","Isaac","Kathya","Yvonne"] },
+	"2806": { name: "Adrian", team: " The Skeleton Crew", roster: ["Adrian","Iris","Isaac","Javier","Kathya","Yvonne"] },
+	"4635": { name: "Iris", team: " The Skeleton Crew", roster: ["Iris","Adrian","Isaac","Javier","Kathya","Yvonne"] },
+	"7870": { name: "Isaac", team: " The Skeleton Crew", roster: ["Isaac","Adrian","Iris","Javier","Kathya","Yvonne"] },
+	"9919": { name: "Yvonne", team: " The Skeleton Crew", roster: ["Yvonne","Adrian","Iris","Isaac","Javier","Kathya"] },
+	"9852": { name: "Kathya", team: " The Skeleton Crew", roster: ["Kathya","Adrian","Iris","Isaac","Javier","Yvonne"] },
 	"1774": { name: "Omar", team: " The Trick or Treaters", roster: ["Omar","Daniel","Gaby","Jonathan O","Nau"] },
 	"9969": { name: "Nau", team: " The Trick or Treaters", roster: ["Nau","Daniel","Gaby","Jonathan O","Omar"] },
 	"1233": { name: "Jonathan O", team: " The Trick or Treaters", roster: ["Jonathan O","Daniel","Gaby","Nau","Omar"] },
@@ -588,6 +610,7 @@
 	============================================================ */
 	const SPREADSHEET_URL = "https://docs.google.com/spreadsheets/d/1kW8hWA10BKXkQwlsXiq55qwD-PBtSUJ5NzBVbqKysrY/edit?usp=sharing";
 	const RSVP_URL = "https://forms.gle/bf6wso9T6ZJEYCvVA";
+	const SCOREBOARD_URL = "https://datastudio.google.com/u/0/reporting/44ae2629-af98-4be9-a498-48dddccfd6ff/page/9sq4F";
 
 	/* ============================================================
 	EDIT: the three movies for trivia night. Add an image file for each in the same folder as this HTML file.
@@ -601,6 +624,7 @@
 
 	document.getElementById('sheetLink').href = SPREADSHEET_URL;
 	document.getElementById('rsvpLink').href = RSVP_URL;
+	document.getElementById('scoreboardLink').href = SCOREBOARD_URL;
 
 	/* ============================================================
 	EDIT: the games and their rules. "name" is the label guests
@@ -608,23 +632,29 @@
 	EDIT GAME # to the game name when ready to reveal.
 	============================================================ */
 	const GAMES = [
-	{ name: "Game 1", rules: ["Players are surrounding their assigned table. Bones are distributed on the table.", "Players walk around the table while the music plays.", "When the music stops, players must grab a bone from the table.", "Players who do not grab a bone are Eliminated.", "Two bones are removed from the table before the next round beings.","Repeat until last player standing."],
+	{ name: "Bones", rules: ["Teams stand at their assigned tables, bones are scattered across each table.", "Players creep around the table while music plays. When the music stops, players must grab a bone from the table.", "Players who do not grab a bone are Eliminated.", "Two bones are removed from the table before the next round beings.", "Repeat until last player standing."],
 	points: [
-	{ place: "1st Place", description: "100 points awarded to the winning team. An additional 50 points awarded to the individual player." },
-	{ place: "2nd Place", description: "75 points awarded to the winning team. An additional 50 points awarded to the individual player." },
-	{ place: "3rd Place", description: "50 points awarded to the winning team. An additional 25 points awarded to the individual player." }
+	{ place: "1st Place", description: "100 points awarded to the first winning team. An additional 50 points awarded to the individual player." },
+	{ place: "2nd Place", description: "75 points awarded to the second winning team. An additional 40 points awarded to the individual player." },
+	{ place: "3rd Place", description: "50 points awarded to the third winning team. An additional 30 points awarded to the individual player." }
 	] },
-	{ name: "Game 2", rules: ["Rule one goes here.", "Rule two goes here.", "Rule three goes here."],
+	{ name: "Mummy Walk", rules: ["Round 1 begins with the first 3 teams. Each team must assign a player to be the Mummy.", "Each team is given 2 paper rolls and 3 minutes to wrap their Mummy.", "Mummies stand on the starting line and must walk 'like a Mummy' to the finish line.", "At the end of the walk, the standby teams select the winning Mummy.", "The standby teams select their Mummy to begin Round 2."],
 	points: [
-	{ place: "1st Place", description: "100 points awarded to the winning team. An additional 50 points awarded to the individual Mummy." },
-	{ place: "2nd Place", description: "75 points awarded to the winning team. An additional 50 points awarded to the individual Mummy." },
-	{ place: "3rd Place", description: "50 points awarded to the winning team. An additional 25 points awarded to the individual Mummy." }
+	{ place: "1st Place", description: "100 points awarded to the first winning team. An additional 50 points awarded to the individual Mummy." },
+	{ place: "2nd Place", description: "75 points awarded to the second winning team. An additional 40 points awarded to the individual Mummy." },
+	{ place: "3rd Place", description: "50 points awarded to the third winning team. An additional 30 points awarded to the individual Mummy." }
 	] },
-	{ name: "Game 3", rules: ["Four corners are placed around the area.", "Players are given 10 seconds to choose a corner.", "A random corner is chosen as the Corner of Death.", "All players in the Corner of Death are Eliminated.", "Repeat until last player standing."],
+	{ name: "Corner of Death", rules: ["Four corners are assigned as 'Corners of Death'.", "Players are given 10 seconds to stand in a corner.", "A corner is chosen at random to be the Corner of Death.", "All players in the Corner of Death are Eliminated.", "Repeat until last player standing."],
 	points: [
-	{ place: "1st Place", description: "100 points awarded to the winning team. An additional 50 points awarded to the individual player." },
-	{ place: "2nd Place", description: "75 points awarded to the winning team. An additional 50 points awarded to the individual player." },
-	{ place: "3rd Place", description: "50 points awarded to the winning team. An additional 25 points awarded to the individual player." }
+	{ place: "1st Place", description: "100 points awarded to the first winning team. An additional 50 points awarded to the individual player." },
+	{ place: "2nd Place", description: "75 points awarded to the second winning team. An additional 40 points awarded to the individual player." },
+	{ place: "3rd Place", description: "50 points awarded to the third winning team. An additional 30 points awarded to the individual player." }
+	] },
+	{ name: "Movie Trivia", rules: ["Trivia will have 12 Rounds total: 4 Rounds for each movie.", "At the start of each Round, each team selects 2 players to buzz in and answer the Round question.", "The first team to buzz in will answer first. If they answer incorrectly, the next team has a chance to answer, and so on. Team who answers correctly earns all points for that Round.", "The next Round begins with 2 new players per team. Players cannot be chosen for 2 consecutive Rounds."],
+	points: [
+	{ place: "1st Place", description: "200 points awarded to the first winning team." },
+	{ place: "2nd Place", description: "150 points awarded to the second winning team." },
+	{ place: "3rd Place", description: "100 points awarded to the third winning team." }
 	] }
 	];
 
@@ -641,8 +671,7 @@
 	btn.type = 'button';
 	btn.className = 'guest-name display game-link';
 	btn.textContent = game.name;
-	//Uncomment on October 17th to enable rules reveal***************
-	//btn.addEventListener('click', ()=> openRules(game));
+	btn.addEventListener('click', ()=> openRules(game));
 	li.appendChild(btn);
 	gameListEl.appendChild(li);
 	});
@@ -732,7 +761,8 @@
 
 	function tickCountdown(){
 	const el = document.getElementById('countdown');
-	const diff = getOctoberSeventeen() - new Date();
+	/*------------------- countdown to PARTY DATE -- Update const diff -----------------*/
+	const diff = getPartyDate() - new Date();
 	if(diff <= 0){
 		el.textContent = "00d 00h 00m 00s";
 		return;
